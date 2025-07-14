@@ -1,0 +1,32 @@
+services:
+  db:
+    build:
+      context: ./mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: my_password
+      MYSQL_DATABASE: my_database
+    volumes: 
+      - db_data:/var/lib/mysql
+    networks:
+      - backend_network
+
+  web:
+    build:
+      context: ./src
+    networks:
+      - frontend_network
+      - backend_network
+
+  revers_proxy:
+    image: nginx:1.29.0
+    ports:
+      - 80:80
+    networks:
+      - frontend_network
+
+volumes:
+  db_data: 
+
+networks:
+  frontend_network:
+  backend_network:
