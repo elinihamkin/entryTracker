@@ -9,6 +9,11 @@ services:
     container_name: mysql
     networks:
       - backend_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
 
 
   web:
