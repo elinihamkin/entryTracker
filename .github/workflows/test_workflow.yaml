@@ -52,3 +52,5 @@ jobs:
           echo "Building image with tag"
           docker build -t ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest ./src
           docker push ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest
+          docker build -t ${{ vars.AWS_ECR_ENTRY_TRACKER }}:1.0.1 ./src
+          docker push ${{ vars.AWS_ECR_ENTRY_TRACKER }}:1.0.1
