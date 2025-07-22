@@ -35,3 +35,20 @@ jobs:
 
       - name: stop compose
         run: docker compose down
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: tag and push image to ecr
+        run: |
+          echo "Building image with tag"
+          docker build -t ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest .
+          docker push ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest
