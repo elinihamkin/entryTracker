@@ -50,5 +50,5 @@ jobs:
       - name: tag and push image to ecr
         run: |
           echo "Building image with tag"
-          docker build -t ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest .
+          docker build -t ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest ./src
           docker push ${{ vars.AWS_ECR_ENTRY_TRACKER }}:latest
